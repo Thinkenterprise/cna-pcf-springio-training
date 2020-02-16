@@ -1,0 +1,14 @@
+---
+applications:
+  - name: routeService 
+    random-route: true
+    path: target/cna-pas-springio-ui-final-0.0.1-SNAPSHOT.jar
+    env:
+      ROUTE_SERVICE_VERSION: 1
+    memory: 1G
+    health-check-type: http
+    health-check-timeout: 180
+    health-check-http-endpoint: /actuator/health
+    services:
+    - autoscaler
+    - sql-mysql-cleardb
