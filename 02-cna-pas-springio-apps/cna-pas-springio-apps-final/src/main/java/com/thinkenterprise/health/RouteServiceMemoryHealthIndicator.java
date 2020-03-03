@@ -38,7 +38,7 @@ public class RouteServiceMemoryHealthIndicator implements HealthIndicator {
 		
 		logger.info(limitsMem);
 
-		if (limitsMem >= 2048)
+		if (limitsMem >= 1024)
 			return Health.up().build();
 		else
 			return Health.down().build();

@@ -45,7 +45,7 @@ mvn clean package
 
 ## Deployment 
 ```
-cf push routeService -p cna-pas-springio-apps-start-0.0.1-SNAPSHOT.jar
+-p cf push helloWorldService -p cna-pas-springio-apps-final-0.0.1-SNAPSHOT.jar
 
 ```
 

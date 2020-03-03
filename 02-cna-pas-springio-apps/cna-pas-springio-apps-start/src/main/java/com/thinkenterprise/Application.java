@@ -22,7 +22,6 @@ package com.thinkenterprise;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.boot.SpringApplication;
@@ -33,7 +32,6 @@ public class Application implements ApplicationRunner {
 	
 	private Log logger = LogFactory.getLog(Application.class); 
 	
-	@Value("${route.service.version}")
 	private String version;
 	
 	
