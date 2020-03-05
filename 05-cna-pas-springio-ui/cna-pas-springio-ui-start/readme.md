@@ -11,7 +11,7 @@ zurückgibt.
 ## Vorbereitung  
 **Project: cna-pas-springio-ui-start**
 
-Lösen Sie bitte alle bereits laufenden Apps.
+Lösen Sie bitte alle bereits laufenden Apps und Datenbanktabellen.
 
 
 ## Login 
