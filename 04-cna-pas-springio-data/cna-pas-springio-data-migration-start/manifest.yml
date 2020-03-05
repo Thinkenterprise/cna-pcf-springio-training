@@ -1,0 +1,7 @@
+---
+applications:
+  - name: routeServiceDataMigration 
+    no-route: true
+    path: target/cna-pas-springio-data-migration-start-0.0.1-SNAPSHOT.jar
+    health-check-type: process
+    memory: 512M

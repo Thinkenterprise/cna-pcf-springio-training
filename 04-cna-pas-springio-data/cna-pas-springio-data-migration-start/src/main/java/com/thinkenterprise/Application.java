@@ -1,3 +1,4 @@
+
 /*
  * Copyright (C) 2020 Thinkenterprise
  *
@@ -19,37 +20,50 @@
 
 package com.thinkenterprise;
 
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.flywaydb.core.Flyway;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
-
-import com.thinkenterprise.route.Route;
-import com.thinkenterprise.route.RouteRepository;
+import org.springframework.cloud.task.configuration.EnableTask;
+import org.springframework.cloud.task.listener.TaskExecutionListener;
+import org.springframework.cloud.task.repository.TaskExecution;
 
 @SpringBootApplication
-public class Application implements ApplicationRunner {
+public class Application implements ApplicationRunner, TaskExecutionListener {
 	
 	private Log logger = LogFactory.getLog(Application.class); 
 	
-	@Value("${route.service.version}")
-	private String version;
-	
-	@Value("${cf.instance.index}")
-	private String index;
-	
-	public static void main(String[] args) {
+
+    public static void main(String[] args) {
         SpringApplication.run(Application.class, args);
     }
 
+	@Override
 	public void run(ApplicationArguments args) throws Exception {
-		logger.info("Start: Route Service with version " + version + "Instance: " + index);
-	}	
+		logger.info("Migrate Database ...");
+	}
+
+	@Override
+	public void onTaskStartup(TaskExecution taskExecution) {
+		logger.info("Spring Cloud Task Migrate Database ... Startup");
+	}
+		
+	
+
+	@Override
+	public void onTaskEnd(TaskExecution taskExecution) {
+		logger.info("Spring Cloud Task Migrate Database ... End ");
+		
+	}
+
+	@Override
+	public void onTaskFailed(TaskExecution taskExecution, Throwable throwable) {
+		logger.info("Spring Cloud Task Migrate Database ... Failed ");
+		
+	}
+	
 }
