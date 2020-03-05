@@ -56,14 +56,6 @@ public class RouteController {
 		return new ResponseEntity<Iterable<Route>>(routeRepository.findAll(),HttpStatus.OK);
 	}
 	
-	@ApiOperation(value="Delete one route", notes="Delete one route from the repository", nickname="getAll", response=Void.class)
-	@ApiResponses(value= {@ApiResponse(code=204, message="no content"), @ApiResponse(code=400, message="can't access routes ",response=Error.class) })
-	@RequestMapping(value = "{id}", method = RequestMethod.DELETE)
-	@ResponseStatus(HttpStatus.NO_CONTENT)
-    public void delete(@ApiParam(name="id", value="route identifier", required=true, type="Long") @PathVariable(value = "id") Long id) {
-		routeRepository.deleteById(id);
-	}
-			
 	@ApiOperation(value="Get one route", notes="Get one Route from the repository", nickname="get", response=Route.class, code=200, tags={"Routes"}, produces="application/json")
 	@ApiResponses(value = {@ApiResponse(code=400, message="Cant read route from repository",response=Error.class)})
 	@RequestMapping(value = "{id}", method = RequestMethod.GET, produces=MediaType.APPLICATION_JSON_VALUE)

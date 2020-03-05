@@ -38,15 +38,7 @@ public class Route  {
 	private String departure;
 	private String destination;
 	
-	@Transient
-	private Integer flights;
 	
-	public Integer getFlights() {
-		return flights;
-	}
-	public void setFlights(Integer flights) {
-		this.flights = flights;
-	}
 	public Long getId() {
 		return id;
 	}

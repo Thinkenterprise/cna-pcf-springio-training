@@ -30,7 +30,6 @@
 										<th>Number</th>
 										<th>Departure</th>
 										<th>Destination</th>
-										<th>Flüge</th>
 										
 									</tr>
 								</thead>
@@ -39,7 +38,6 @@
 										<td th:text="${route.flightNumber}"></td>
 										<td th:text="${route.departure}"></td>
 										<td th:text="${route.destination}"></td>
-										<td th:text="${route.flights}"></td>
 										<td><a th:href="@{/edit/{id}(id=${route.id})}"
 											class="btn btn-primary"><i class="fas fa-user-edit ml-2"></i></a></td>
 										<td><a
