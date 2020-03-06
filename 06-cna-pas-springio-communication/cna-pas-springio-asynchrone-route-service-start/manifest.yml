@@ -13,4 +13,3 @@ applications:
     services:
     - sql-mysql-cleardb
     - service-registry
-    - message-queue

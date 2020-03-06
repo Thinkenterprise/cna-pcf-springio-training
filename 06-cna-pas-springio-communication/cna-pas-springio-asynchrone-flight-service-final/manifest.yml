@@ -9,10 +9,8 @@ applications:
       JBP_CONFIG_SPRING_AUTO_RECONFIGURATION: '{enabled: false}'
     memory: 1G
     health-check-type: http
-    health-check-timeout: 180
     health-check-http-endpoint: /actuator/health
     services:
-    - autoscaler
-    - sql-mysql-cleardb
+    - sql-mysql-cleardb-flight
     - service-registry
     - message-queue
