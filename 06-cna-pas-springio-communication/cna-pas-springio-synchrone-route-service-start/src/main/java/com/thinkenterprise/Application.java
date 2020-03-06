@@ -28,9 +28,11 @@ import org.springframework.boot.ApplicationRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
+import org.springframework.cloud.client.loadbalancer.LoadBalanced;
 import org.springframework.context.annotation.Bean;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.client.RestTemplate;
 
 import springfox.documentation.builders.ApiInfoBuilder;
 import springfox.documentation.builders.PathSelectors;
@@ -51,14 +53,14 @@ public class Application implements ApplicationRunner {
 	@Value("${cf.instance.index}")
 	private String index;
 	
-	
     public static void main(String[] args) {
         SpringApplication.run(Application.class, args);
     }
 
 	public void run(ApplicationArguments args) throws Exception {
-		logger.info("Start: Flight Service with version " + version + "Instance: " + index);
+		logger.info("Start: Route Service with version " + version + "Instance: " + index);
 	}
+	
 		
 	@Bean
 	public Docket newsApi() {
@@ -70,7 +72,7 @@ public class Application implements ApplicationRunner {
 	}
 	
 	private ApiInfo apiInfo() {
-		return new ApiInfoBuilder().title("Aearo").description("Flight API").version("1.0").build();
+		return new ApiInfoBuilder().title("Aearo").description("Route API").version("1.0").build();
 	}
-  
+	  
 }

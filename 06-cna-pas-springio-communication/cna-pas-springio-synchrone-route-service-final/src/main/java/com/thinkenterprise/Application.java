@@ -42,7 +42,6 @@ import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
 
 @SpringBootApplication
-@RestController
 @EnableDiscoveryClient
 public class Application implements ApplicationRunner {
 	
@@ -62,11 +61,7 @@ public class Application implements ApplicationRunner {
 		logger.info("Start: Route Service with version " + version + "Instance: " + index);
 	}
 	
-	@GetMapping("traffic")
-	public String traffic() {
-		return "Call Instance: " + index;	
-	}
-	
+		
 	@Bean
 	public Docket newsApi() {
 		return new Docket(DocumentationType.SWAGGER_2).apiInfo(apiInfo()).select()

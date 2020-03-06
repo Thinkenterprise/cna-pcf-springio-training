@@ -12,4 +12,3 @@ applications:
     health-check-http-endpoint: /actuator/health
     services:
     - sql-mysql-cleardb
-    - service-registry
