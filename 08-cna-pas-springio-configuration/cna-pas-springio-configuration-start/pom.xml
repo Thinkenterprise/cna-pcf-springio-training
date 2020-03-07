@@ -13,7 +13,7 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>com.thinkenterprise</groupId>
-	<artifactId>cna-pas-springio-configuration-final</artifactId>
+	<artifactId>cna-pas-springio-configuration-start</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
