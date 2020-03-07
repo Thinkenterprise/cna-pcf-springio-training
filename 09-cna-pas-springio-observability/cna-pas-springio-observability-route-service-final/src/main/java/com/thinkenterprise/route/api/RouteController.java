@@ -19,6 +19,8 @@
 
 package com.thinkenterprise.route.api;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -31,6 +33,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.thinkenterprise.Application;
 import com.thinkenterprise.route.Route;
 import com.thinkenterprise.route.RouteRepository;
 
@@ -45,6 +48,7 @@ import io.swagger.annotations.ApiResponses;
 @Api("routes")
 public class RouteController {
 
+	private Log logger = LogFactory.getLog(RouteController.class); 
 
 	@Autowired
 	RouteRepository routeRepository;
@@ -53,6 +57,7 @@ public class RouteController {
 	@ApiResponses(value = {@ApiResponse(code=204, message="empty list"), @ApiResponse(code=400, message="can't access routes ",response=Error.class)})
 	@RequestMapping(method=RequestMethod.GET, produces=MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Iterable<Route>> getAll() {
+		logger.info("getAll called");
 		return new ResponseEntity<Iterable<Route>>(routeRepository.findAll(),HttpStatus.OK);
 	}
 	

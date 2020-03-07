@@ -47,10 +47,9 @@ public class Application implements ApplicationRunner {
 	@Value("${route.service.version}")
 	private String version;
 	
-	@Autowired
-	private MeterRegistry meterRegistry;
 	
-	private Counter counter;
+	
+	
 
 	public static void main(String[] args) {
 		SpringApplication.run(Application.class, args);
@@ -58,13 +57,6 @@ public class Application implements ApplicationRunner {
 
 	public void run(ApplicationArguments args) throws Exception {
 		logger.info("Start: AeroGateway with version " + version);
-		
-		counter = Counter
-				  .builder("fallback.counter")
-				  .description("count the number of fallbacks")
-				  .tags("service", "states")
-				  .register(this.meterRegistry);
-
 	}
 	
 	
@@ -79,7 +71,6 @@ public class Application implements ApplicationRunner {
 
 	@RequestMapping("fallback")
 	public String fallback() {
-		counter.increment();
 		return "The application is temporarily unavailable";
 
 	}
