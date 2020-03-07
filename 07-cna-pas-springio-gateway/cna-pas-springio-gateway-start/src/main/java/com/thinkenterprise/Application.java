@@ -51,21 +51,4 @@ public class Application implements ApplicationRunner {
 		logger.info("Start: AeroGateway with version " + version);
 
 	}
-	
-	
-	@Bean
-	public RouteLocator myRoutes(RouteLocatorBuilder builder) {
-		return builder.routes()
-				.route(p -> p.path("/**")
-						.filters(f -> f.circuitBreaker(c -> c.setName("resilience4j").setFallbackUri("forward:/fallback")))
-						.uri("lb://routeService").id("routeService"))
-				.build();
-	}
-
-	@RequestMapping("fallback")
-	public String fallback() {
-		return "The application is temporarily unavailable";
-
-	}
-
 }

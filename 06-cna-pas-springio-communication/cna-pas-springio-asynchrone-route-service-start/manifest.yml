@@ -2,7 +2,7 @@
 applications:
   - name: routeService 
     random-route: true
-    path: target/cna-pas-springio-asynchrone-route-service-final-0.0.1-SNAPSHOT.jar
+    path: target/cna-pas-springio-asynchrone-route-service-start-0.0.1-SNAPSHOT.jar
     env:
       ROUTE_SERVICE_VERSION: 1
       SPRING_PROFILES_ACTIVE: cloud
