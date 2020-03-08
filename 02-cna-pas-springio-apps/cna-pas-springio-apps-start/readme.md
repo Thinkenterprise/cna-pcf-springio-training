@@ -3,15 +3,11 @@
 Die Fluggesellschaft hat einen Route Service in Spring Boot implementiert. Der Service soll als App über die **Pivotal Application Services** (PAS) unternehmensweit bereitgestellt werden. 
 
 1. Deployen Sie die Spring Boot Anwendung mit dem Namen RouteService als App in die PAS. Verwenden Sie dabei die Standardeinstellungen.  
-
-
 2. Führen Sie nun ein Manifest ein, um die App für die PAS zu konfigurieren. Bestimmen Sie in dem Manifest das zu deployende Artefakt, den Namen der App und die Route als Random Route. Pushen Sie dfie Anwendung und überprüfen Sie ihre Einstellungen 
-
 
 3. Die App soll die aktuelle Java-Buildpack-Implementierung aus GitHub verwenden. Ändern Sie entsprechend das Manifest. Pushen Sie dfie Anwendung und überprüfen Sie ihre Einstellungen 
 
 4. Definieren Sie über das Manifest eine Environment Variable ROUTE_SERVICE_VERSION, vergeben eine Route und geben diese bei Start der App über das Logging aus. 
-
 
 5. Führen Sie beim Health Indicator eine Variable ein, die über das Application Environment VCAP_APPLICATION das Memory ermittelt. Setzen Sie den Health Status auf DOWN sobald der Speicher unter 1024 liegt. 
 
@@ -192,5 +188,4 @@ applications:
     disk_quota: 512M
     instances: 2
 ```
-
-Ändern Sie das Memory so, dass der Health-Indicator den Zustand Down anzeigt. 
+ 

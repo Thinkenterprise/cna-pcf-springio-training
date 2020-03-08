@@ -42,7 +42,6 @@ import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
 
 @SpringBootApplication
-@EnableDiscoveryClient
 public class Application implements ApplicationRunner {
 	
 	private Log logger = LogFactory.getLog(Application.class); 

@@ -48,9 +48,6 @@ public class Application implements ApplicationRunner {
 	private String version;
 	
 	
-	
-	
-
 	public static void main(String[] args) {
 		SpringApplication.run(Application.class, args);
 	}

@@ -4,8 +4,7 @@ Die Fluggesellschaft moechte die Anwendung so erweitern, dass diese mit einem JW
 
 
 1. Richten Sie über Github, Google oder Facebook einen OAuth2 Authorization Server ein 
-2. Implementieren Sie einen OAuth2/JWT Client Gateway 
-3. Implementieren Sie einen OAuth2/JWT Resource Service Route Service 
+2. Implementieren Sie einen OAuth2/JWT Client Gateway  
   
 
 ## Client ID/Secret in OAuth2 Authorization Server einrichten  
@@ -13,7 +12,7 @@ Die Fluggesellschaft moechte die Anwendung so erweitern, dass diese mit einem JW
 
 
 Im folgenden wird kurz erklärt wie das für Github funktioniert. 
-In anderen Umgebungen wie Google oder Facebook sind die schritte ähnlich. 
+In anderen Umgebungen wie Google oder Facebook sind die Schritte ähnlich. 
 
 1. Login Github 
 2. Settings aufrufen 
@@ -21,9 +20,10 @@ In anderen Umgebungen wie Google oder Facebook sind die schritte ähnlich.
 4. OAuth Apps
 5. New OAuth App
 
-Als Homepage URL geben Sie **http://gfu.net**
+Als Homepage URL geben Sie **http://gfu.net** oder die URL ihres Unternehmens an. 
 Wichtig ist die Vergabe der **Authorization callback URL**. Definieren Sie die URL wie folgt **http://aerosecuritygateway<org>.cfapps.io**
-ein. 
+ein. Die **org** entspricht dem Namen der Organisationseinheit in der Cloud. Damit ist sichergestellt, dass nicht die gleiche Routes 
+vergeben werden.  
 
 Sie erhalten dann **Client ID** und **Client Secret**.  
 
@@ -66,8 +66,8 @@ Hier tragen Sie nun die Client ID und Client Secret ein, damit der JWT-Token von
 Die dahinterliegenden Endpoint URLs für z.B. Github, sind Spring Boot bekannt. 
 
 ``` java
-spring.security.oauth2.client.registration.github.client-id=edc49cc39421092777cc
-spring.security.oauth2.client.registration.github.client-secret=78a81958aeed2914821d883973c8ea0d84b00515
+spring.security.oauth2.client.registration.github.client-id=???
+spring.security.oauth2.client.registration.github.client-secret=???
 ```
 
 ## Spring Boot OAuth2 Client Security Konfiguration  

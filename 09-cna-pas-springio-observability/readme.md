@@ -1,12 +1,11 @@
-## Task 
+## Aufgabe 
 
 Die Fluggesellschaft moechte die Anwendung so erweitern, dass es bei Problemen moeglich ist, die Anwendung  
 zu untersuchen und moegliche Fehler zu erkennen.   
 
 1. Erweitern Sie den Gateway so, dass der **State** �ber HTTP gelesen werden kann 
-2. Loggen Sie jeden eingehenden Request 
-3. Fügen Sie dem Gateway eine Counter **Metric** hinzu. Der Counter soll 
-   die Ausfälle des Route Service zählen. 
+2. **Loggen** Sie jeden eingehenden Request 
+3. Fuegen Sie dem Gateway eine Counter **Metric** hinzu. Der Counter soll die Ausaelle des Route Service zaehlen. 
 4. Der Aufruf der Aeror Webseite soll über ein **Tracing** von Gateway über den Route Service verfolgt werden. 
 
 ## Vorbereitung  

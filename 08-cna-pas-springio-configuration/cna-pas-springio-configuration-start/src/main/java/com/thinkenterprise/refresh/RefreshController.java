@@ -29,13 +29,11 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.thinkenterprise.Application;
 
-@RefreshScope
 @RestController
 public class RefreshController {
 
 	private Log logger = LogFactory.getLog(RefreshController.class);
 
-	@Value("${aero.gateway.enabled}")
 	private Boolean enabled;
 
 	@RequestMapping("enabled")

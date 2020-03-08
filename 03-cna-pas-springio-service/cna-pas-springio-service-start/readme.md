@@ -71,10 +71,10 @@ cf install-plugin ./autoscaler-for-pcf-cliplugin-macosx64-binary-2.0.233
 ## App Autoscaler Configure Service 
 
 
-Zunächst setzen wir die Grenzen auf 1-2 Instanzen 
+Zunächst setzen wir die Grenzen auf 1-3 Instanzen 
 
 ```
-cf update-autoscaling-limits routeService 1 2
+cf update-autoscaling-limits routeService 1 3
 
 ```
 

@@ -45,9 +45,6 @@ import io.micrometer.core.instrument.MeterRegistry;
 public class Application implements ApplicationRunner {
 
 	private Log logger = LogFactory.getLog(Application.class);
-
-	@Autowired
-	private TokenRelayGatewayFilterFactory filterFactory;
 	
 	
 	@Value("${route.service.version}")
@@ -66,8 +63,7 @@ public class Application implements ApplicationRunner {
 	public RouteLocator myRoutes(RouteLocatorBuilder builder) {
 		return builder.routes()
 				.route(p -> p.path("/**")
-						.filters(f -> f.filter(filterFactory.apply())
-								.circuitBreaker(c -> c.setName("resilience4j").setFallbackUri("forward:/fallback")))
+						.filters(f -> f.circuitBreaker(c -> c.setName("resilience4j").setFallbackUri("forward:/fallback")))
 						.uri("lb://routeService").id("routeService"))
 				.build();
 	}

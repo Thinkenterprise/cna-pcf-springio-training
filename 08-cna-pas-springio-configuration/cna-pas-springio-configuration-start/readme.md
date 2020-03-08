@@ -5,9 +5,14 @@ Die Fluggesellschaft möchte den Gateway über eine zentrale Konfiguration Ein -
  
 1. Estellen Sie ein Configuration Repository (Git Repsoitory)
 2. Legen Sie im Configuration Repository die Konfiguration ab
-   über die der Gateway Ein - und Ausgeschaltet werden kann. 
+   über die der Gateway ein - und ausgeschaltet werden kann. 
 3. Erstellen Sie einen Configuration Server
+4. Erstellen Sie eine Gateway App, die über den Configuration Server konfiguriert werden kann. 
 
+## Vorbereitung  
+**Project: cna-pas-springio-configuration-start**
+
+Löschen Sie alle Apps in der Cloud.
 
 ## Login 
 **Project: cna-pas-springio-configuration-start**

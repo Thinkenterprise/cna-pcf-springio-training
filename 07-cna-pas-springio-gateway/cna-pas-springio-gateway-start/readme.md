@@ -12,6 +12,13 @@ Die Fluggesellschaft  möchte einen Gateway vor die Anwendung schalten.
 
 Löschen Sie alle Apps in der Cloud. 
 
+## Login 
+**Project: cna-pas-springio-gateway-start**
+
+```
+cf login -a api.run.pivotal.io -u <user> -p <password> 
+
+```
 
 ## Gateway Dependency Prüfen   
 **Project: cna-pas-springio-gateway-start**
@@ -29,7 +36,8 @@ Prüfen sie ob der Starter für die Implementierung des Gateway vorhanden ist.
 ## Implement a Redirect
 **Project: cna-pas-springio-gateway-start**
 
-Eine Umleitung kann über die Konfiguration einer **RouteLocator** Instance implementiert werden.
+Eine Umleitung (Redirect) kann über die Konfiguration einer **RouteLocator** Instance implementiert werden.
+Die Implementierung können Sie in der Klasse **Application.java** durchführen. 
  
 
 ```
@@ -85,13 +93,7 @@ mvn clean package
 
 ```
 
-## Login 
-**Project: cna-pas-springio-gateway-start**
 
-```
-cf login -a api.run.pivotal.io -u <user> -p <password> 
-
-```
 
 ## Deployment 
 **Project: cna-pas-springio-gateway-start**

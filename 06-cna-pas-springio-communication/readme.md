@@ -11,7 +11,7 @@
 ## Vorbereitung  
 ** Project: cna-pas-springio-synchrone-route-service-start**
 
-Löschen Sie alle Apps in der Cloud und Tabellen in der Datenbank.
+Löschen Sie alle Apps in der Cloud.
 
 
 ## Login 
@@ -269,7 +269,7 @@ Da wir den Flight Service noch nicht deployed haben greift der Circuite Breaker 
 ## Flight Service Deployen  
 ** Project: cna-pas-springio-synchron-flight-service-start**
 
-Der Flight Service ist soweit implementiert. Sie können sich gerne die Implementierung des Flight Service nochmal in ruhe anschauen. 
+Der Flight Service ist soweit implementiert. Sie können sich gerne die Implementierung des Flight Service nochmal in Ruhe anschauen. 
 
 
 
@@ -307,7 +307,8 @@ Die Fluggesellschaft möchte die Anwendung so erweitern, das beim Erstellen oder 
 3. Flight Service Nachrichten Empfangen beim Erstellen oder Löschen von Routen   
 
 ## Vorbereitung 
-Bitte Löschen Sie alle Apps in der Cloud und 
+Bitte Löschen Sie alle Apps in der Cloud.
+ 
 
 ## Login 
 **Project: cna-pas-springio-asynchrone-route-service-start**

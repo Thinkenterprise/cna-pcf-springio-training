@@ -11,6 +11,6 @@ applications:
     health-check-type: http
     health-check-http-endpoint: /actuator/health
     services:
-    - sql-mysql-cleardb-flight
+    - sql-mysql-cleardb
     - service-registry
     - message-queue

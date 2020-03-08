@@ -3,7 +3,7 @@
 
 
 1. Fügen Sie dem Route Service ein **User Interface** hinzu, dass alle Routen im Browser anzeigt. 
-Verwenden Sie dazu eine **Thin-Client** Technologie baiserend auf einer **HTML-Rendering Engine thymeleaf**. 
+Verwenden Sie dazu eine **Thin-Client** Technologie baiserend auf einer **HTML-Rendering Engine Thymeleaf**. 
 2. Fügen Sie dem Route Service ein **User Interface** hinzu, dass über ein **REST API** alle Routen als JSON-Dokument 
 zurückgibt. 
 
@@ -54,7 +54,7 @@ Browser : http://<Service-url>
 ## UI - REST API  
 **Project: cna-pas-springio-ui-start**
 
-Die **Open API Specification** rufen Sie auf indem Sie die URL des Service ermitteln und dann über **Postma** ``v2/api-docs `` eingeben. 
+Die **Open API Specification** rufen Sie auf indem Sie die URL des Service ermitteln und dann über **Postman** ``v2/api-docs `` eingeben. 
 
 
 ```
@@ -70,7 +70,7 @@ Die **Open API Documentation** rufen Sie auf indem Sie die URL des Route Service
 
 ```
 cf apps
-Postman : http://<Service-url>/swagger-ui.html
+http://<Service-url>/swagger-ui.html
 
 ```
 
@@ -94,7 +94,7 @@ public class Route  {
 
 
 
-In der Index.html ist folgende Zeile an der richtigen Stelle zu ergänzen.
+In der **index.html** ist folgende Zeile an der richtigen Stelle zu ergänzen.
  
 ```html
 <td th:text="${route.flights}"></td>

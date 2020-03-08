@@ -1,7 +1,7 @@
 ## Aufgabe  
 
 Die Fluggesellschaft möchte den Route Service nun an eine MySQL Datenbank anbinden. 
-Die Datenbankmigration soll über ein Task App, basierend auf Flyway und Spring Cloud Task, 
+Die Datenbankmigration soll über ein Task App, basierend auf **Flyway** und **Spring Cloud Task**, 
 durchgeführt werden. Die Task App soll über einen Cloud Task aufgerufen werden. 
 
 
@@ -26,7 +26,7 @@ cf login -a api.run.pivotal.io -u <user> -p <password>
 
 Suchen Sie den richtigen MySQL Cloud Service aus dem Marketplace aus und installieren Sie diesen. 
 Achten Sie darauf, dass die Installation im hintergrund durchgeführt wird und ein weile dauern kann. 
-ÃœberprÃ¼fen Sie den Status der Installation. 
+Ueberpruefen Sie den Status der Installation. 
 
 
 ```
@@ -43,7 +43,7 @@ Um auf die Datenbank zuzugreifen können Sie einen beliebigen Datenbank SQL Clien
 In der Schulung verwenden wir die **MySQL Workbench**. 
 
 Um eine Datenbankverbindung mit der Workbench zu erstellen, benötigen Sie die Zugangsdaten der Datenbank.
-Ã–ffenen Sie den Application Manager, wÃ¤hlen Sie den erstellten Datenbank Service aus und rufen Sie die 
+Oeffenen Sie den **Application Manager**, waehlen Sie den erstellten Datenbank Service aus und rufen Sie die 
 Management-Seite des Services auf, um die Zugangsdaten zu ermitteln. 
 
 Erstellen Sie nun mit den Zugangsdaten über MySQL Workbench eine Verbindung zur Datenbank. 
@@ -52,7 +52,7 @@ Erstellen Sie nun mit den Zugangsdaten über MySQL Workbench eine Verbindung zur 
 ## Spring Data Einführen  
 **Project: cna-pas-springio-data-start**
 
-FÃ¼gen Sie den Route Service die folgende Dependency hinzu. 
+Fuegen Sie den Route Service die folgende Dependency hinzu. 
 
 ```
 <dependency>
@@ -86,7 +86,6 @@ mvn clean package
 ```
 
 ## Deployment
-
 **Project: cna-pas-springio-data-start**
 
  
@@ -94,6 +93,7 @@ mvn clean package
 cf push 
 
 ```
+
 ## Spring Cloud Task Dependency hinzufügen 
 **Project: cna-pas-springio-data-migration-start**
 
@@ -117,7 +117,7 @@ Aktivieren Sie in der Klasse Application den Task und schauen Sie sich das Life-
 }  
 ```
 
-## Flyway Dependency hinzufügen 
+## Flyway Dependency prüfen  
 **Project: cna-pas-springio-data-migration-start**
 
 Normalerweise ist unter Spring Boot 2.x die Flyway Version > 6.0 definiert. Allerdings unterstützt diese nicht die 
@@ -134,10 +134,10 @@ die kostenpflichtige Enterprise Edition von Flyway verwendet werden.
 
 ```
 
-## Properties 
+## Properties check
 **Project: cna-pas-springio-data-migration-start**
 
-Die folgenden Properties sind in der application.properties schon definiert. 
+Die folgenden Properties sind in der **application.properties** schon definiert. 
 
 
 ``` 
@@ -150,7 +150,7 @@ flyway.checkLocation=false
 ## Migration Skript
 **Project: cna-pas-springio-data-migration-start**
 
-Unter dem Verzeichnis **resource/db/migration** finden Sie das Migrationsskript, dass genau eine Tabelle in der Datenbank anlegt. 
+Unter dem Verzeichnis **resource/db/migration** finden Sie das Migrationsskript, dass genau eine Tabelle in der Datenbank anlegt und Daten hinzugfügt. 
 
 
 ## Manifest 
@@ -158,7 +158,7 @@ Unter dem Verzeichnis **resource/db/migration** finden Sie das Migrationsskript,
 
 Über das Manifest kann die Zuordnung einer Route **no-route: true** verhindert werden. Das Management wird über 
 **health-check-type: process** ausgeschaltet. Diese Einstellungen sind notwendig, da die App ja nicht dauerhaft 
-ausgeführt und vom Health-Management überwachst werden soll. 
+ausgeführt und vom Health-Management überwacht werden soll. 
 
 ```
 ---
@@ -211,62 +211,10 @@ Prüfen Sie ob die Tabelle in der Datenbank angelegt wurde.
 
 **Project: cna-pas-springio-data-start**
 
-Ãœber  **Curl** kann Ã¼berprÃ¼ft werden, ob die Daten Ã¼ber die Anwendung bereitgestellt werden kÃ¶nnen. Es sollte nun eine Leere Liste 
-angezeigt werden. 
+Ueber  **Curl** kann ueberprueft werden, ob die Daten von der Anwendung bereitgestellt werden koennen. 
 
  ```
 curl <Route>/routes  
 
 ```
 
-## Add Migration Script 
-**Project: cna-pas-springio-data-migration-start**
-
-Fügen Sie ein neues Migrationsskript hinzu **V2__insert_routes.sql** und fügen Sie dort folgende Zeilen ein. 
-
-``` 
-insert into route(id, flight_number, departure, destination) values(101, 'LH7902','MUC','IAH');
-insert into route(id, flight_number, departure, destination) values(102, 'LH1602','MUC','IBZ');
-insert into route(id, flight_number, departure, destination) values(103, 'LH401','FRA','NYC');
-```
-
-
-## Build 
-**Project: cna-pas-springio-data-migration-start**
-
-``` 
-mvn clean package
-
-```
-
-
-## Deployment 
-**Project: cna-pas-springio-data-migration-start**
- 
-```
-cf push 
-
-```
-
-## Start Task 
-**Project: cna-pas-springio-data-migration-start**
-
-Starte Task über Route Service Migration App. 
-
-```
-cf run-task routeServiceDataMigration ".java-buildpack/open_jdk_jre/bin/java org.springframework.boot.loader.JarLauncher" --name routeServiceDataMigration-task
-
-
-```
-
-
-## Application Data 
-
-**Project: cna-pas-springio-data-start**
-
-Ãœber  **Curl** kann Ã¼berprÃ¼ft werden, ob die Daten Ã¼ber die Anwendung bereitgestellt werden kÃ¶nnen. Es sollten nun drei Datensätze angezeigt werden.
-
- ```
-curl <Route>/routes  
-
-```
