@@ -3,5 +3,8 @@ applications:
   - name: routeServiceDataMigration 
     no-route: true
     path: target/cna-pas-springio-data-migration-start-0.0.1-SNAPSHOT.jar
+    env:
+      ROUTE_SERVICE_VERSION: 1
+      JBP_CONFIG_OPEN_JDK_JRE: '[memory_calculator: {stack_threads: 50}]'
     health-check-type: process
     memory: 512M
