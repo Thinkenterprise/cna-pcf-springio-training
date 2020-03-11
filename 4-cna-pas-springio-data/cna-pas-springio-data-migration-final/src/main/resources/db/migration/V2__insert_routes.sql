@@ -1,1 +1,0 @@
-insert into route(id, flightNumber, departure, destination) values(1,'LH7902','MUC','IAH');
