@@ -7,7 +7,7 @@ Unter den folgenden Links finden sie die Übungen für die unterschiedlichen Umg
 
 Übungen zur synchronen Kommunikation. 
 
-- [Pivotal Cloud Foundry (PCF)](/readme-asynchrone-with-pcf.md)
+- [Pivotal Cloud Foundry (PCF)](./readme-asynchrone-with-pcf.md)
 
 - [Docker (Container)]()
 
