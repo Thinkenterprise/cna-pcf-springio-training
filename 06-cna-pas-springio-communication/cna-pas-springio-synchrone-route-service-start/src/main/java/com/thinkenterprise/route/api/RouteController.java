@@ -16,7 +16,7 @@
  *
  * @author Michael Schaefer
  */
-
+ 
 package com.thinkenterprise.route.api;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,56 +34,67 @@ import org.springframework.web.bind.annotation.RestController;
 import com.thinkenterprise.route.Route;
 import com.thinkenterprise.route.RouteRepository;
 
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiParam;
-import io.swagger.annotations.ApiResponse;
-import io.swagger.annotations.ApiResponses;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.tags.Tag;
 
 @RestController
 @RequestMapping("routes")
-@Api("routes")
+@Tag(name = "routes")
 public class RouteController {
 
 
 	@Autowired
 	RouteRepository routeRepository;
 	
-	@ApiOperation(value="Get all Routes", notes= "Read the list of routes from the repository", nickname="getAll", response=Route.class, responseContainer="List", code=200, tags={"Routes"}, produces="application/json")
-	@ApiResponses(value = {@ApiResponse(code=204, message="empty list"), @ApiResponse(code=400, message="can't access routes ",response=Error.class)})
+	@Operation(summary = "Get all Routes", responses = {
+			@ApiResponse(responseCode = "200", description = "Routes", content = @Content(mediaType = "application/json", schema = @Schema(implementation = Route.class))),
+			@ApiResponse(responseCode = "203", description = "No Routes"),
+			@ApiResponse(responseCode = "400", description = "Error")})
 	@RequestMapping(method=RequestMethod.GET, produces=MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Iterable<Route>> getAll() {
 		return new ResponseEntity<Iterable<Route>>(routeRepository.findAll(),HttpStatus.OK);
 	}
 	
-	@ApiOperation(value="Delete one route", notes="Delete one route from the repository", nickname="getAll", response=Void.class)
-	@ApiResponses(value= {@ApiResponse(code=204, message="no content"), @ApiResponse(code=400, message="can't access routes ",response=Error.class) })
+	@Operation(summary = "Get all Routes", responses = {
+			@ApiResponse(responseCode = "200", description = "Routes", content = @Content(mediaType = "application/json", schema = @Schema(implementation = Route.class))),
+			@ApiResponse(responseCode = "203", description = "No Routes"),
+			@ApiResponse(responseCode = "400", description = "Error")})
 	@RequestMapping(value = "{id}", method = RequestMethod.DELETE)
 	@ResponseStatus(HttpStatus.NO_CONTENT)
-    public void delete(@ApiParam(name="id", value="route identifier", required=true, type="Long") @PathVariable(value = "id") Long id) {
+    public void delete(@Parameter(description = "route itentifier", required = true)  @PathVariable(value = "id") Long id) {
 		routeRepository.deleteById(id);
 	}
 			
-	@ApiOperation(value="Get one route", notes="Get one Route from the repository", nickname="get", response=Route.class, code=200, tags={"Routes"}, produces="application/json")
-	@ApiResponses(value = {@ApiResponse(code=400, message="Cant read route from repository",response=Error.class)})
+	@Operation(summary = "Get all Routes", responses = {
+			@ApiResponse(responseCode = "200", description = "Routes", content = @Content(mediaType = "application/json", schema = @Schema(implementation = Route.class))),
+			@ApiResponse(responseCode = "203", description = "No Routes"),
+			@ApiResponse(responseCode = "400", description = "Error")})
 	@RequestMapping(value = "{id}", method = RequestMethod.GET, produces=MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<Route> get(@ApiParam(name="id", value="route itentifier", required=true, type="Long")@PathVariable(value = "id") Long id) {
+	public ResponseEntity<Route> get(@Parameter(description = "route itentifier", required = true) @PathVariable(value = "id") Long id) {
 		 return new ResponseEntity<Route>(routeRepository.findById(id).get(),HttpStatus.OK);
 		 
 	 }
 	
-	@ApiOperation(value="Update one route", notes="Update Route form repository", nickname="put", code=200, tags={"Routes"}, consumes="application/json")
-	@ApiResponses(value={@ApiResponse(code=400, message="can't update routes ",response=Error.class)})
+	@Operation(summary = "Get all Routes", responses = {
+			@ApiResponse(responseCode = "200", description = "Routes", content = @Content(mediaType = "application/json", schema = @Schema(implementation = Route.class))),
+			@ApiResponse(responseCode = "203", description = "No Routes"),
+			@ApiResponse(responseCode = "400", description = "Error")})
 	@RequestMapping(method = RequestMethod.PUT, consumes=MediaType.APPLICATION_JSON_VALUE)
 	@ResponseStatus(HttpStatus.NO_CONTENT)
-	public void put(@ApiParam(name="Route", value="new route entity", required=true )@Validated @RequestBody Route entity) {	
+	public void put(@Parameter(description = "route itentifier", required = true) @Validated @RequestBody Route entity) {	
 	    routeRepository.save(entity);
 	}	
 	
-	@ApiOperation(value="Create one route", notes="Create Route in repository", nickname="post", code=203, response=Route.class, tags={"Routes"}, consumes="application/json")
-	@ApiResponses(value={@ApiResponse(code=400, message="can't update routes ",response=Error.class)})
+	@Operation(summary = "Get all Routes", responses = {
+			@ApiResponse(responseCode = "200", description = "Routes", content = @Content(mediaType = "application/json", schema = @Schema(implementation = Route.class))),
+			@ApiResponse(responseCode = "203", description = "No Routes"),
+			@ApiResponse(responseCode = "400", description = "Error")})
 	@RequestMapping(method = RequestMethod.POST, consumes=MediaType.APPLICATION_JSON_VALUE, produces=MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<Route> post(@ApiParam(name="Route", value="new route entity", required=true ) @Validated @RequestBody Route entity) {	
+	public ResponseEntity<Route> post(@Parameter(description = "route itentifier", required = true) @Validated @RequestBody Route entity) {	
 	    return new ResponseEntity<Route>(routeRepository. save(entity),HttpStatus.CREATED);
 	}	
 		

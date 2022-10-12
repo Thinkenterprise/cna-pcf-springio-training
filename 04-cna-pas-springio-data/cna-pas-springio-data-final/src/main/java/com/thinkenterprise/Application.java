@@ -19,7 +19,6 @@
 
 package com.thinkenterprise;
 
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,20 +35,20 @@ import com.thinkenterprise.route.RouteRepository;
 
 @SpringBootApplication
 public class Application implements ApplicationRunner {
-	
-	private Log logger = LogFactory.getLog(Application.class); 
-	
+
+	private Log logger = LogFactory.getLog(Application.class);
+
 	@Value("${route.service.version}")
 	private String version;
-	
+
 	@Value("${cf.instance.index}")
 	private String index;
-	
+
 	public static void main(String[] args) {
-        SpringApplication.run(Application.class, args);
-    }
+		SpringApplication.run(Application.class, args);
+	}
 
 	public void run(ApplicationArguments args) throws Exception {
 		logger.info("Start: Route Service with version " + version + "Instance: " + index);
-	}	
+	}
 }

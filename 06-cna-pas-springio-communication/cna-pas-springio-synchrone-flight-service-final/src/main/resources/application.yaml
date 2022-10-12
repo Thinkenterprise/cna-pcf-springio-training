@@ -1,0 +1,79 @@
+# Default Stage Setting for Development 
+server:
+  port: 8081
+
+spring:
+  application:
+    name: flightService   
+  profiles:
+    active:
+    - mysql
+    - eureka
+    - loadbalancer
+    
+## Actuator Settings 
+management:
+  endpoints: 
+    enabled-by-default: true
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    health:
+      show-details: always
+
+## Open API Settings     
+springdoc:
+  api-docs:
+    enabled: true
+    path: /oas/v3/spec
+  packagesToScan: com.thinkenterprise.flight.api
+  swagger-ui:
+    path: /oas/v3/ui
+
+# Product Stage Setting 
+
+# MySQL Database Settings 
+---
+spring:
+  config: 
+    activate:
+      on-profile: mysql        
+        
+  datasource:
+    url: jdbc:mysql://localhost:3307/aircraft
+    username: thinkenterprise
+    password: thinkenterprise20!
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+# Eureka Client Settings 
+---
+spring:
+  config: 
+    activate:
+      on-profile: eureka
+      
+eureka:
+  client:
+    serviceUrl: 
+      defaultZone: http://localhost:8761/eureka/
+    initialInstanceInfoReplicationIntervalSeconds: 5 
+    registryFetchIntervalSeconds: 5
+  instance:
+    leaseRenewalIntervalInSeconds: 5
+    leaseExpirationDurationInSeconds: 5
+
+# Loadbalancer Settings 
+---
+spring:
+  config: 
+    activate:
+      on-profile: loadbalancer 
+  cloud:
+    loadbalancer:
+      retry:
+        enabled: true
+
+
+
+

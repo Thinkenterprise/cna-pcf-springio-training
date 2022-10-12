@@ -21,7 +21,6 @@ package com.thinkenterprise.health;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.actuate.health.Health;
 import org.springframework.boot.actuate.health.HealthIndicator;
 import org.springframework.stereotype.Component;
@@ -31,8 +30,8 @@ public class RouteServiceMemoryHealthIndicator implements HealthIndicator {
 	
 	private Log logger = LogFactory.getLog(RouteServiceMemoryHealthIndicator.class); 
 		
-	@Value("${vcap.application.limits.mem}")
-	private Long limitsMem;
+	//@Value("${vcap.application.limits.mem}")
+	private Long limitsMem = 512L;
 
 	public Health health() {
 		

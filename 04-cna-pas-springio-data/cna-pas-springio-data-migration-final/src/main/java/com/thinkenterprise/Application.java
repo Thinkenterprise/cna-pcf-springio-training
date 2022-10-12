@@ -20,10 +20,10 @@
 
 package com.thinkenterprise;
 
+import javax.sql.DataSource;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.flywaydb.core.Flyway;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.boot.SpringApplication;
@@ -38,6 +38,7 @@ public class Application implements ApplicationRunner, TaskExecutionListener {
 	
 	private Log logger = LogFactory.getLog(Application.class); 
 	
+	private DataSource test;
 
     public static void main(String[] args) {
         SpringApplication.run(Application.class, args);

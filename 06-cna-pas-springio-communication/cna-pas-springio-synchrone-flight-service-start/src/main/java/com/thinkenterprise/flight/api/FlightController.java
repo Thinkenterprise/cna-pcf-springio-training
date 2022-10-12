@@ -25,7 +25,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.util.RouteMatcher.Route;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -33,35 +32,39 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.thinkenterprise.flight.Flight;
 import com.thinkenterprise.flight.FlightRepository;
-import com.thinkenterprise.health.RouteServiceMemoryHealthIndicator;
 
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiParam;
-import io.swagger.annotations.ApiResponse;
-import io.swagger.annotations.ApiResponses;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.tags.Tag;
 
 @RestController
 @RequestMapping("flights")
-@Api("flights")
+@Tag(name = "flights")
 public class FlightController {
 	
-	private Log logger = LogFactory.getLog(RouteServiceMemoryHealthIndicator.class); 
+	private Log logger = LogFactory.getLog(FlightController.class); 
 
 	@Autowired
 	FlightRepository flightRepository;
 	
-	@ApiOperation(value="Get all Flights", notes= "Read the list of flights from the repository", nickname="getAll", response=Route.class, responseContainer="List", code=200, tags={"Flight"}, produces="application/json")
-	@ApiResponses(value = {@ApiResponse(code=204, message="empty list"), @ApiResponse(code=400, message="can't access flights ",response=Error.class)})
+	@Operation(summary = "Get all Routes", responses = {
+			@ApiResponse(responseCode = "200", description = "Flights", content = @Content(mediaType = "application/json", schema = @Schema(implementation = Flight.class))),
+			@ApiResponse(responseCode = "203", description = "No Flights"),
+			@ApiResponse(responseCode = "400", description = "Error")})
 	@RequestMapping(method=RequestMethod.GET, produces=MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Iterable<Flight>> getAll() {
 		return new ResponseEntity<Iterable<Flight>>(flightRepository.findAll(),HttpStatus.OK);
 	}
 	
-	@ApiOperation(value="Get Flight Count", notes= "Get Count of Flights", nickname="getAll", response=Route.class, responseContainer="List", code=200, tags={"Flight"})
-	@ApiResponses(value = {@ApiResponse(code=204, message="empty list"), @ApiResponse(code=400, message="can't access flights ",response=Error.class)})
+	@Operation(summary = "Get all Routes", responses = {
+			@ApiResponse(responseCode = "200", description = "Flights", content = @Content(mediaType = "application/json", schema = @Schema(implementation = Flight.class))),
+			@ApiResponse(responseCode = "203", description = "No Flights"),
+			@ApiResponse(responseCode = "400", description = "Error")})
 	@RequestMapping(path = "count/{id}", method=RequestMethod.GET)
-	public ResponseEntity<Long> getCount(@ApiParam(name="id", value="route identifier", required=true, type="Long") @PathVariable("id") Long id) {
+	public ResponseEntity<Long> getCount(@Parameter(description = "route itentifier", required = true)  @PathVariable("id") Long id) {
 		logger.info(id);
 		return new ResponseEntity<Long>(new Long(flightRepository.findByRouteId(id).size()),HttpStatus.OK);
 	}

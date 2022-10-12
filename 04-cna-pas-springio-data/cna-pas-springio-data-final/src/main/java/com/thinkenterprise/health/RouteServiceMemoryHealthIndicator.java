@@ -28,14 +28,14 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class RouteServiceMemoryHealthIndicator implements HealthIndicator {
-	
-	private Log logger = LogFactory.getLog(RouteServiceMemoryHealthIndicator.class); 
-		
+
+	private Log logger = LogFactory.getLog(RouteServiceMemoryHealthIndicator.class);
+
 	@Value("${vcap.application.limits.mem}")
 	private Long limitsMem;
 
 	public Health health() {
-		
+
 		logger.info(limitsMem);
 
 		if (limitsMem >= 512)

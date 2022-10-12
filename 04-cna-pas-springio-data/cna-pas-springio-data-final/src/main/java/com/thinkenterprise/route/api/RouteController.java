@@ -9,13 +9,13 @@ import com.thinkenterprise.route.RouteRepository;
 
 @RestController
 public class RouteController {
-	
+
 	@Autowired
 	private RouteRepository routeRepository;
-	
+
 	@GetMapping("routes")
 	public Iterable<Route> routes() {
 		return routeRepository.findAll();
-	} 
+	}
 
 }

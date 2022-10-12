@@ -1,0 +1,1 @@
+insert into aircraft.flight(id, price, start, route_Id) values(101, 2.55,'2012-01-01',101);

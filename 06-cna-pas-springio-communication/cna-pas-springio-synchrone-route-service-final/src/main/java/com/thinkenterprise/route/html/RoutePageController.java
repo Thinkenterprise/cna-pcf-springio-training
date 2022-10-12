@@ -31,7 +31,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
-import com.thinkenterprise.health.RouteServiceMemoryHealthIndicator;
 import com.thinkenterprise.route.Route;
 import com.thinkenterprise.route.RouteRepository;
 import com.thinkenterprise.route.RouteService;
