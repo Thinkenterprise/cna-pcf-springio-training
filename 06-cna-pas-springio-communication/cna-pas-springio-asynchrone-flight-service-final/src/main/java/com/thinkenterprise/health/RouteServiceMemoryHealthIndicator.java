@@ -31,8 +31,8 @@ public class RouteServiceMemoryHealthIndicator implements HealthIndicator {
 	
 	private Log logger = LogFactory.getLog(RouteServiceMemoryHealthIndicator.class); 
 		
-	@Value("${vcap.application.limits.mem}")
-	private Long limitsMem;
+	//@Value("${vcap.application.limits.mem}")
+	private Long limitsMem = 512L;
 
 	public Health health() {
 		

@@ -64,9 +64,9 @@ public class FlightController {
 			@ApiResponse(responseCode = "203", description = "No Flights"),
 			@ApiResponse(responseCode = "400", description = "Error")})
 	@RequestMapping(path = "count/{id}", method=RequestMethod.GET)
-	public ResponseEntity<Long> getCount(@Parameter(description = "route itentifier", required = true)  @PathVariable("id") Long id) {
+	public ResponseEntity<String> getCount(@Parameter(description = "route itentifier", required = true)  @PathVariable("id") Long id) {
 		logger.info(id);
-		return new ResponseEntity<Long>(new Long(flightRepository.findByRouteId(id).size()),HttpStatus.OK);
+		return new ResponseEntity<String>(Long.toString(flightRepository.findByRouteId(id).size()),HttpStatus.OK);
 	}
 		
 }

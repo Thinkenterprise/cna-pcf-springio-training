@@ -39,12 +39,12 @@ public class Route  {
 	private String destination;
 	
 	@Transient
-	private Long flights;
+	private String flights;
 	
-	public Long getFlights() {
+	public String getFlights() {
 		return flights;
 	}
-	public void setFlights(Long flights) {
+	public void setFlights(String flights) {
 		this.flights = flights;
 	}
 	public Long getId() {

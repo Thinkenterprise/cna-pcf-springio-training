@@ -2,42 +2,27 @@ package com.thinkenterprise.route;
 
 import java.util.function.Supplier;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cloud.client.circuitbreaker.CircuitBreaker;
-import org.springframework.cloud.client.circuitbreaker.CircuitBreakerFactory;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
-@Component
+@Service
 public class RouteService {
+private RestTemplate restTemplate;
 	
 	
-	private RestTemplate restTemplate;
 	
-	private CircuitBreaker circuitBreaker;
-	
-	@Autowired
-	public RouteService(RestTemplate restTemplate, CircuitBreakerFactory  circuitBreakerFactory) {
-		this.restTemplate=restTemplate;
-		this.circuitBreaker=circuitBreakerFactory.create("routeService");   
-	
-	}
-	
-	public Long flightCount(Long id) {
-		return restTemplate.getForObject("", Long.class, id);
+	public String flightCount(Long id) {
+		return restTemplate.getForObject("http://flightService/flights/count/{id}", String.class, id);
 	}
 	
 
-	public Supplier<Long> flightCountSuppplier(Long id) {
+	public Supplier<String> flightCountSuppplier(Long id) {
 		return () -> this.flightCount(id);
 	}
 	
 	
-	 public Long flightCountResilence(Long id) {
-		 return 0L;
+	 public String flightCountResilence(Long id) {
+		return "No Flights";
 		 
 	 }
-	 
 }
-
-

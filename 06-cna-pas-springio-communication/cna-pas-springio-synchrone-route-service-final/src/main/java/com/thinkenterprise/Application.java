@@ -43,10 +43,10 @@ public class Application implements ApplicationRunner {
 	
 	private Log logger = LogFactory.getLog(Application.class); 
 	
-	//@Value("${route.service.version}")
+	@Value("${route.service.version}")
 	private String version;
 	
-	//@Value("${cf.instance.index}")
+	@Value("${cf.instance.index}")
 	private String index;
 	
     public static void main(String[] args) {

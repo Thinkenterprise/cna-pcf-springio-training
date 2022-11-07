@@ -1,15 +1,16 @@
 # Default Stage Setting for Development 
+
 server:
-  port: 8081
+  port: 8082
 
 spring:
   application:
-    name: flightService   
+    name: routeService   
   profiles:
     active:
     - h2
     - eureka
-    - loadbalancer
+    - loadbalancer   
     - test
   jpa:
     defer-datasource-initialization: true # Create JPA-Schema before(!) loading SQL scripts (override new behaviour of Spring-Boot 2.5)
@@ -17,7 +18,7 @@ spring:
     show-sql: true
     hibernate:
       ddl-auto: create-drop   
-    
+  
 ## Actuator Settings 
 management:
   endpoints: 
@@ -34,11 +35,10 @@ springdoc:
   api-docs:
     enabled: true
     path: /oas/v3/spec
-  packagesToScan: com.thinkenterprise.flight.api
+  packagesToScan: com.thinkenterprise.route.api
   swagger-ui:
     path: /oas/v3/ui
-    
-    
+
 ## Instance information Settings 
 route:
   service:
@@ -49,7 +49,8 @@ cf:
 vcap:
   application:
     limits:
-      mem: 512    
+      mem: 512
+
 
 # Product Stage Setting 
 
@@ -58,7 +59,7 @@ vcap:
 spring:
   config: 
     activate:
-      on-profile: mysql       
+      on-profile: mysql             
   sql:
     init:
       platform: mysql
@@ -67,8 +68,8 @@ spring:
     url: jdbc:mysql://localhost:3306/aircraft
     username: thinkenterprise
     password: thinkenterprise20!
-    driver-class-name: com.mysql.cj.jdbc.Driver   
-     
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    
 # H2 Database Settings 
 ---
 spring:
@@ -79,9 +80,8 @@ spring:
     init:
       platform: h2
   datasource:
-    url: jdbc:h2:mem:testdb;DB_CLOSE_ON_EXIT=FALSE     
-           
-  
+    url: jdbc:h2:mem:testdb;DB_CLOSE_ON_EXIT=FALSE 
+    
 # Eureka Client Settings 
 ---
 spring:
@@ -95,6 +95,7 @@ eureka:
       defaultZone: http://localhost:8761/eureka/
     initialInstanceInfoReplicationIntervalSeconds: 5 
     registryFetchIntervalSeconds: 5
+    enabled: false
   instance:
     leaseRenewalIntervalInSeconds: 5
     leaseExpirationDurationInSeconds: 5
@@ -110,14 +111,15 @@ spring:
       retry:
         enabled: true
 
-
 # Test Settings
 ---
 spring:
   config: 
     activate:
-      on-profile: test
+      on-profile: test  
+stubrunner:
+  ids-to-service-ids:
+    cna-pas-springio-synchron-flight-service-final: flightService
 eureka:
   client:
     enabled: false
-

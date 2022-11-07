@@ -13,7 +13,7 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>com.thinkenterprise</groupId>
-	<artifactId>cna-pas-springio-synchron-route-service-final</artifactId>
+	<artifactId>cna-pas-springio-synchron-route-service-start</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
@@ -70,50 +70,8 @@
 
 	<profiles>
 		<!-- Product Profiles -->
-		<!-- Using Netflix Eureka a Discovery Client. Define a additional profile 
-			for other products like Consul, or Zookeeper etc. -->
-		<profile>
-			<id>eureka</id>
-			<dependencies>
-				<dependency>
-					<groupId>org.springframework.cloud</groupId>
-					<artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
-				</dependency>
-			</dependencies>
-		</profile>
-		<!-- Using Spring Cloud Loadbalancer implementation. Define a additional profile for Netlix 
-			Loadbalancer or other products etc. -->
-		<profile>
-			<id>loadbalancer</id>
-			<dependencies>
-				<dependency>
-					<groupId>org.springframework.cloud</groupId>
-					<artifactId>spring-cloud-starter-loadbalancer</artifactId>
-				</dependency>
-			</dependencies>
-		</profile>
-		<!-- Using Spring Cloud Resilience4J implementation. Define a additional profile for Netlix 
-			Hystrixs or other products etc. -->
-		<profile>
-			<id>resilience4j</id>
-			<dependencies>
-				<dependency>
-					<groupId>org.springframework.cloud</groupId>
-					<artifactId>spring-cloud-starter-circuitbreaker-resilience4j</artifactId>
-				</dependency>
-			</dependencies>
-		</profile>
-		<!-- Using Netflix Eureka a Discovery Client. Define a additional profile 
-			for Consul, or Zookeeper if you want -->
-		<profile>
-			<id>eureka</id>
-			<dependencies>
-				<dependency>
-					<groupId>org.springframework.cloud</groupId>
-					<artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
-				</dependency>
-			</dependencies>
-		</profile>
+
+	
 		<!-- Using MySQL as Database Driver -->
 		<profile>
 			<id>mysql</id>
@@ -124,6 +82,17 @@
 				</dependency>
 			</dependencies>
 		</profile>
+			
+		<!-- Using H2 as Database Driver -->
+		<profile>
+			<id>h2</id>
+			<dependencies>
+				<dependency>
+			        <groupId>com.h2database</groupId>
+			        <artifactId>h2</artifactId>
+		       </dependency>
+			</dependencies>
+		</profile>	
 
 		<!-- Cloud Profiles -->
 		<!-- Using Pivotal Cloud Foundry as Cloud Environment -->

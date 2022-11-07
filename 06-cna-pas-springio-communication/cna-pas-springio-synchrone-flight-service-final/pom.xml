@@ -15,7 +15,8 @@
 		<java.version>9</java.version>
 	</properties>
 
-<!-- Default Profile which is activated for all stages like develop, integration or production -->
+	<!-- Default Profile which is activated for all stages like develop, integration 
+		or production -->
 
 	<dependencyManagement>
 		<dependencies>
@@ -50,12 +51,21 @@
 			<artifactId>spring-boot-starter-data-jpa</artifactId>
 		</dependency>
 		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-test</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-starter-contract-verifier</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
 			<groupId>org.springdoc</groupId>
 			<artifactId>springdoc-openapi-ui</artifactId>
 			<version>1.6.11</version>
 		</dependency>
 	</dependencies>
-	
+
 	<profiles>
 		<!-- Product Profiles -->
 		<!-- Using Netflix Eureka a Discovery Client. Define a additional profile 
@@ -79,8 +89,17 @@
 				</dependency>
 			</dependencies>
 		</profile>
-
-		<!-- Cloud Profiles -->		
+		<!-- Using H2 as Database Driver -->
+		<profile>
+			<id>h2</id>
+			<dependencies>
+				<dependency>
+			        <groupId>com.h2database</groupId>
+			        <artifactId>h2</artifactId>
+		       </dependency>
+			</dependencies>
+		</profile>	
+		<!-- Cloud Profiles -->
 		<!-- Using Pivotal Cloud Foundry as Cloud Environment -->
 		<profile>
 			<id>pcf</id>
@@ -95,7 +114,8 @@
 					</dependency>
 				</dependencies>
 			</dependencyManagement>
-			<!-- Using Netflix Eureka a Discovery Client which is connected with the managed service from PCF  -->
+			<!-- Using Netflix Eureka a Discovery Client which is connected with the 
+				managed service from PCF -->
 			<dependencies>
 				<dependency>
 					<groupId>io.pivotal.spring.cloud</groupId>
@@ -104,7 +124,6 @@
 			</dependencies>
 		</profile>
 	</profiles>
-
 	<build>
 		<plugins>
 			<plugin>
@@ -118,6 +137,39 @@
 					</execution>
 				</executions>
 			</plugin>
+			<plugin>
+				<groupId>org.springframework.cloud</groupId>
+				<artifactId>spring-cloud-contract-maven-plugin</artifactId>
+				<extensions>true</extensions>
+				<version>3.1.4</version>
+				<configuration>
+					<baseClassForTests>com.thinkenterprise.BaseClass</baseClassForTests>
+				</configuration>
+			</plugin>
+			<plugin>
+    <groupId>org.codehaus.mojo</groupId>
+    <artifactId>build-helper-maven-plugin</artifactId>
+    <executions>
+        <execution>
+            <id>add-source</id>
+            <phase>generate-test-sources</phase>
+            <goals>
+                <goal>add-test-source</goal>
+            </goals>
+            <configuration>
+                <sources>
+                    <source>${project.build.directory}/generated-test-sources/contracts/</source>
+                </sources>
+            </configuration>
+        </execution>
+    </executions>
+</plugin>
+			
+			
+			
+			
+			
+			
 		</plugins>
 	</build>
 

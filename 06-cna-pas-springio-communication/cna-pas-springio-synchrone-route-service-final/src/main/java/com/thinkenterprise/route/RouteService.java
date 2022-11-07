@@ -23,21 +23,20 @@ public class RouteService {
 	
 	}
 	
-	public Long flightCount(Long id) {
-		return restTemplate.getForObject("http://flightService/flights/count/{id}", Long.class, id);
+	public String flightCount(Long id) {
+		return restTemplate.getForObject("http://flightService/flights/count/{id}", String.class, id);
 	}
 	
-
-	public Supplier<Long> flightCountSuppplier(Long id) {
+	
+	public Supplier<String> flightCountSuppplier(Long id) {
 		return () -> this.flightCount(id);
 	}
 	
 	
-	 public Long flightCountResilence(Long id) {
-		 return circuitBreaker.run(this.flightCountSuppplier(id), t -> { return -1L; });
+	 public String flightCountResilence(Long id) {
+		 return circuitBreaker.run(this.flightCountSuppplier(id), t -> { return "No Flights"; });
 		 
 	 }
 	 
 }
-
 

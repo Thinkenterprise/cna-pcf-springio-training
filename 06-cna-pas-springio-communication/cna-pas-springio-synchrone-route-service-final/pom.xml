@@ -19,7 +19,6 @@
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<maven.compiler.source>9</maven.compiler.source>
 		<maven.compiler.target>9</maven.compiler.target>
 		<java.version>9</java.version>
@@ -60,6 +59,14 @@
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-thymeleaf</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-test</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-starter-contract-stub-runner</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>org.springdoc</groupId>
@@ -103,6 +110,16 @@
 				</dependency>
 			</dependencies>
 		</profile>
+		<!-- Using H2 as Database Driver -->
+		<profile>
+			<id>h2</id>
+			<dependencies>
+				<dependency>
+			        <groupId>com.h2database</groupId>
+			        <artifactId>h2</artifactId>
+		       </dependency>
+			</dependencies>
+		</profile>	
 		<!-- Using MySQL as Database Driver -->
 		<profile>
 			<id>mysql</id>

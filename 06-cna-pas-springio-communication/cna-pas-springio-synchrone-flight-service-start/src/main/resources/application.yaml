@@ -7,10 +7,9 @@ spring:
     name: flightService   
   profiles:
     active:
-    - h2
+    - mysql
     - eureka
     - loadbalancer
-    - test
   jpa:
     defer-datasource-initialization: true # Create JPA-Schema before(!) loading SQL scripts (override new behaviour of Spring-Boot 2.5)
     generate-ddl: true
@@ -38,7 +37,6 @@ springdoc:
   swagger-ui:
     path: /oas/v3/ui
     
-    
 ## Instance information Settings 
 route:
   service:
@@ -49,7 +47,7 @@ cf:
 vcap:
   application:
     limits:
-      mem: 512    
+      mem: 512
 
 # Product Stage Setting 
 
@@ -67,8 +65,8 @@ spring:
     url: jdbc:mysql://localhost:3306/aircraft
     username: thinkenterprise
     password: thinkenterprise20!
-    driver-class-name: com.mysql.cj.jdbc.Driver   
-     
+    driver-class-name: com.mysql.cj.jdbc.Driver      
+        
 # H2 Database Settings 
 ---
 spring:
@@ -79,9 +77,8 @@ spring:
     init:
       platform: h2
   datasource:
-    url: jdbc:h2:mem:testdb;DB_CLOSE_ON_EXIT=FALSE     
-           
-  
+    url: jdbc:h2:mem:testdb;DB_CLOSE_ON_EXIT=FALSE 
+    
 # Eureka Client Settings 
 ---
 spring:
@@ -89,15 +86,6 @@ spring:
     activate:
       on-profile: eureka
       
-eureka:
-  client:
-    serviceUrl: 
-      defaultZone: http://localhost:8761/eureka/
-    initialInstanceInfoReplicationIntervalSeconds: 5 
-    registryFetchIntervalSeconds: 5
-  instance:
-    leaseRenewalIntervalInSeconds: 5
-    leaseExpirationDurationInSeconds: 5
 
 # Loadbalancer Settings 
 ---
@@ -111,13 +99,5 @@ spring:
         enabled: true
 
 
-# Test Settings
----
-spring:
-  config: 
-    activate:
-      on-profile: test
-eureka:
-  client:
-    enabled: false
+
 

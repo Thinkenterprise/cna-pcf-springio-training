@@ -7,10 +7,12 @@ spring:
     name: flightService   
   profiles:
     active:
-    - h2
+    - mysql
     - eureka
     - loadbalancer
-    - test
+    - resilience4j
+    - rabbit
+    
   jpa:
     defer-datasource-initialization: true # Create JPA-Schema before(!) loading SQL scripts (override new behaviour of Spring-Boot 2.5)
     generate-ddl: true
@@ -37,21 +39,22 @@ springdoc:
   packagesToScan: com.thinkenterprise.flight.api
   swagger-ui:
     path: /oas/v3/ui
-    
-    
-## Instance information Settings 
-route:
-  service:
-    version: 1
-cf:
-  instance:
-    index: 1 
-vcap:
-  application:
-    limits:
-      mem: 512    
 
 # Product Stage Setting 
+
+# Rabbit MQ
+---
+spring:
+  config: 
+    activate:
+      on-profile: rabbit
+  cloud:
+    stream:
+      bindings:
+        input:
+          contentType: application/json
+          destination: EntityChangedCommand
+          group: Command
 
 # MySQL Database Settings 
 ---
@@ -67,21 +70,9 @@ spring:
     url: jdbc:mysql://localhost:3306/aircraft
     username: thinkenterprise
     password: thinkenterprise20!
-    driver-class-name: com.mysql.cj.jdbc.Driver   
-     
-# H2 Database Settings 
----
-spring:
-  config: 
-    activate:
-      on-profile: h2       
-  sql:
-    init:
-      platform: h2
-  datasource:
-    url: jdbc:h2:mem:testdb;DB_CLOSE_ON_EXIT=FALSE     
-           
-  
+    driver-class-name: com.mysql.cj.jdbc.Driver      
+        
+ 
 # Eureka Client Settings 
 ---
 spring:
@@ -111,13 +102,5 @@ spring:
         enabled: true
 
 
-# Test Settings
----
-spring:
-  config: 
-    activate:
-      on-profile: test
-eureka:
-  client:
-    enabled: false
+
 
