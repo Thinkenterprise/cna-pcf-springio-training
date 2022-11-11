@@ -8,10 +8,10 @@ spring:
     name: routeService   
   profiles:
     active:
-    - h2
+    - mysql
     - eureka
     - loadbalancer   
-    - test
+    - resilience4j
   jpa:
     defer-datasource-initialization: true # Create JPA-Schema before(!) loading SQL scripts (override new behaviour of Spring-Boot 2.5)
     generate-ddl: true
@@ -95,7 +95,7 @@ eureka:
       defaultZone: http://localhost:8761/eureka/
     initialInstanceInfoReplicationIntervalSeconds: 5 
     registryFetchIntervalSeconds: 5
-    enabled: false
+    enabled: true
   instance:
     leaseRenewalIntervalInSeconds: 5
     leaseExpirationDurationInSeconds: 5
@@ -110,7 +110,20 @@ spring:
     loadbalancer:
       retry:
         enabled: true
+    
 
+# Loadbalancer Settings 
+---
+spring:
+  config: 
+    activate:
+      on-profile: resilience4j
+resilience4j:
+  timelimiter:
+    instances:
+      flightService:
+        timeout-duration: 2000
+ 
 # Test Settings
 ---
 spring:

@@ -10,6 +10,7 @@ import org.springframework.cloud.contract.stubrunner.spring.StubRunnerProperties
 import com.thinkenterprise.route.RouteService;
 
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
+
 @AutoConfigureStubRunner(
 		ids = "com.thinkenterprise:cna-pas-springio-synchron-flight-service-final:0.0.1-SNAPSHOT:stubs:8100",
 		stubsMode = StubRunnerProperties.StubsMode.LOCAL

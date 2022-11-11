@@ -7,10 +7,12 @@ spring:
     name: flightService   
   profiles:
     active:
-    - h2
+    - mysql
     - eureka
     - loadbalancer
-    - test
+    - chaos
+    - chaos-monkey
+   
   jpa:
     defer-datasource-initialization: true # Create JPA-Schema before(!) loading SQL scripts (override new behaviour of Spring-Boot 2.5)
     generate-ddl: true
@@ -120,4 +122,22 @@ spring:
 eureka:
   client:
     enabled: false
+  
+# Chaos Monkey
+---
+spring:
+  config: 
+    activate:
+      on-profile: chaos
+chaos:
+  monkey:
+    enabled: true
+    watcher:
+      rest-controller: true
+    assaults:
+      level: 1
+      latency-active: true
+      latency-range-start: 1000
+      latency-range-end: 1000
+      exceptions-active: false
 
