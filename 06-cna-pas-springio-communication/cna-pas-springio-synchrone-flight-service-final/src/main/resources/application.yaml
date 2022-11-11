@@ -30,6 +30,10 @@ management:
   endpoint:
     health:
       show-details: always
+    chaosmonkey:
+      enabled: true
+    chaosmonkeyjmx:
+      enabled: true
 
 ## Open API Settings     
 springdoc:
