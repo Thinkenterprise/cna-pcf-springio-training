@@ -67,6 +67,18 @@
 			</dependencies>
 		</profile>
 
+
+		<profile>
+			<id>kafka</id>
+			<dependencies>
+				<dependency>
+					<groupId>org.springframework.cloud</groupId>
+					<artifactId>spring-cloud-starter-stream-kafka</artifactId>
+				</dependency>
+			</dependencies>
+		</profile>
+
+
 		<!-- Using Netflix Eureka a Discovery Client. Define a additional profile 
 			for other products like Consul, or Zookeeper etc. -->
 		<profile>

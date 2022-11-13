@@ -11,7 +11,7 @@ spring:
     - eureka
     - loadbalancer
     - resilience4j
-    - rabbit
+    - kafka
     
   jpa:
     defer-datasource-initialization: true # Create JPA-Schema before(!) loading SQL scripts (override new behaviour of Spring-Boot 2.5)
@@ -47,13 +47,14 @@ springdoc:
 spring:
   config: 
     activate:
-      on-profile: rabbit
+      on-profile: rabbit,kafa
   cloud:
     stream:
       bindings:
         output:
           contentType: application/json
           destination: EntityChangedCommand
+            
 
 # MySQL Database Settings 
 ---

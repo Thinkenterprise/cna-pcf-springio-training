@@ -15,7 +15,7 @@ public class Flight {
 	private Long id;
 	
 	private double price;
-	private LocalDate date;
+	private LocalDate start;
 	private Long routeId;
 	
 
@@ -23,10 +23,10 @@ public class Flight {
 		super();
 	}
 	
-	public Flight(double price, LocalDate date, Long routeId) {
+	public Flight(double price, LocalDate start, Long routeId) {
 		super();
 		this.price = price;
-		this.date = date;
+		this.start = start;
 		this.routeId = routeId;
 	}
 	
@@ -57,11 +57,11 @@ public class Flight {
 	}
 	
 	public LocalDate getDate() {
-		return date;
+		return start;
 	}
 	
-	public void setDate(LocalDate date) {
-		this.date = date;
+	public void setDate(LocalDate start) {
+		this.start = start;
 	}
 	
 

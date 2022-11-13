@@ -2,7 +2,7 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>com.thinkenterprise</groupId>
-	<artifactId>cna-pas-springio-asynchrone-flight-service-final</artifactId>
+	<artifactId>cna-pas-springio-asynchrone-route-service-final</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
@@ -71,6 +71,16 @@
 			</dependencies>
 		</profile>
 
+
+		<profile>
+			<id>kafka</id>
+			<dependencies>
+				<dependency>
+					<groupId>org.springframework.cloud</groupId>
+					<artifactId>spring-cloud-starter-stream-kafka</artifactId>
+				</dependency>
+			</dependencies>
+		</profile>
 		<!-- Using Netflix Eureka a Discovery Client. Define a additional profile 
 			for other products like Consul, or Zookeeper etc. -->
 		<profile>

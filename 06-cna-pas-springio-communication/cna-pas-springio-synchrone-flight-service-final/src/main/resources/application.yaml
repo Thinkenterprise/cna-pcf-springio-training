@@ -142,6 +142,5 @@ chaos:
       level: 1
       latency-active: true
       latency-range-start: 1000
-      latency-range-end: 1000
-      exceptions-active: false
+      latency-range-end: 2000 
 
