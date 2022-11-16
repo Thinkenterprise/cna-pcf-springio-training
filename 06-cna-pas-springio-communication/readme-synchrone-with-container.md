@@ -1,9 +1,5 @@
 # Precondition
-In der **Container** Umgebung wird die Infratruktur über die **Docker** bereitgestellt. Sie benötigen daher einen **Docker-Engine** Installation auf Ihrem Rechner. 
-
-
-# Infrastructure Setup 
-Bitte führen Sie dazu die folgenden Schritte aus. 
+In der **Container** Umgebung wird die Infratruktur über **Docker** bereitgestellt. Sie benötigen daher einen **Docker-Desktop** Installation auf Ihrem Rechner. 
 
 
 ## Infrastruktur hochfahren 
@@ -57,7 +53,7 @@ Bitte fügen Sie unter dem Profil **eureka** folgende Dependency für das Produk
 
 ## Profil setzen 
 Setzen Sie bitte die richtigen Profile für Ihr Build File. Im Fall von Maven sind das die Profile 
-``eureka,mysql,loadbalancer,resilience4j`` die Sie über die IDE als auch beim bauen über die Konsole setzen müssen. 
+``eureka,mysql,loadbalancer,resilience4j`` die Sie über die IDE als auch beim bauen über die Konsole setzen können. 
 
 
 
@@ -65,6 +61,11 @@ Setzen Sie bitte die richtigen Profile für Ihr Build File. Im Fall von Maven si
 Bitte fügen Sie unter dem Profil **eureka** folgende Konfiguration für das Produkt **Netflix Eureka** in das ``application.yaml`` ein.
 
 ```
+---
+spring:
+  config: 
+    activate:
+      on-profile: eureka
 eureka:
   client:
     serviceUrl: 
@@ -97,11 +98,11 @@ Bauen Sie die Anwendung wie folgt
 mvn clean package -Peureka -Pmysql 
 ```
 
-Oder über die IDE indem Sie das Maven Profil auf eureka,mysql setzen. 
+oder über die IDE indem Sie das Maven Profil auf ``eureka,mysql`` setzen. 
 
 
 ## Deployment
-Die Anwendung wird derzeit nicht über einen Container z.B. in einem Kubernetes deoloyed sondern direkt über die Konsole oder IDE gestartet, damit die Anwendung in den Übungen besser testbar ist. 
+Die Anwendung wird derzeit nicht über einen Container deoloyed, sondern direkt über die Konsole oder IDE gestartet, damit die Anwendung in den Übungen besser testbar ist. 
 
 ## Start
 Sie können die Anwendung über die IDE oder wie folgt über die Konsole starten. Die Anwendung wird unter ``/target`` gestartet.
@@ -211,7 +212,7 @@ mvn clean package -Peureka,loadbalancer,resilience4j,mysql
 Oder über die IDE indem Sie das Maven Profil auf eureka,mysql,loadbalancer,resilience4j setzen. 
 
 ## Deployment
-Die Anwendung wird derzeit nicht über einen Container z.B. in einem Kubernetes deoloyed sondern direkt über die Konsole gestartet, damit die Anwendung in den Übungen besser testbar ist. 
+Die Anwendung wird derzeit nicht über einen Container deoloyed sondern direkt über die Konsole gestartet, damit die Anwendung in den Übungen besser testbar ist. 
 
 
 ## Run
@@ -229,7 +230,7 @@ deployed haben greift der Circuite Breaker und der Fallback gibt "No Flights" zu
 
 
 ## Dependency
-Bitte fügen Sie unter dem Profil **eureka** folgende Dependency für das Produkt **Eureka** in das ``pom.pom`` ein. 
+Wir kommen nun zum **Flight Service**. Bitte fügen Sie unter dem Profil **eureka** folgende Dependency für das Produkt **Eureka** in das ``pom.pom`` ein. 
 
 ```
 <profile>
@@ -243,13 +244,13 @@ Bitte fügen Sie unter dem Profil **eureka** folgende Dependency für das Produk
 </profile>
 ```
 
-   
+Bitte setzen setzen Sie das Maven Profile über die IDE auf ``eureka,mysql``.
+  
 ## Implementation 
 Die Freigabe der **Discovery** und **Self Registration** Funktion erfolgt durch die Annotation **@EnableDiscoveryClient**
 Bitte fügen Sie folgende Implementierung in das File ``Application.java`` ein. 
 
 ```java
-
 @SpringBootApplication
 @EnableDiscoveryClient
 public class Application implements ApplicationRunner {
@@ -297,6 +298,7 @@ docker compose -f synchrone-system-containers-startup.yml down
 Im folgenden Fall wird für die Ausführung anstatt MySQL eine H2 Datenbank vernwednet. Sie müssen daher über die IDE das Maven Profil von ``mysql``  auf ``h2`` ändern oder beim Bauen über die Konsole das h2 Profil verwenden. 
 
 ## Producer 
+Der Producer ist in unserem Fall der Flight Service, da dieser dem Consumer Route Service eine API zur Verfügung stellt. 
 
 
 ### Contract   
@@ -319,8 +321,12 @@ Aus dem Contract werden WireMock-JSON-Stubs und Tests erstellt. Dafür sind die 
 			<artifactId>spring-boot-starter-test</artifactId>
 		</dependency>
 	
-	
+```
 
+Zusätzlich noch das Spring Cloud Contract Plugin für die Generierung. 
+
+```xml
+	
 	<plugin>
 		<groupId>org.springframework.cloud</groupId>
 		<artifactId>spring-cloud-contract-maven-plugin</artifactId>
@@ -332,6 +338,33 @@ Aus dem Contract werden WireMock-JSON-Stubs und Tests erstellt. Dafür sind die 
 	</plugin>
 	
 ```
+
+Sofern Sie nach dem Bauen gerne die Test in der IDE verwenden und ausführen möchten sollten Sie noch das folgende Plugin hinzufügen. Die Test werden in der IDE allerdings nach dem ersten bauen und ggf. Neustart oder Projekt Schliesen/Öffenen sichtbar. Zumindest in Eclipse. 
+
+
+```xml
+
+	<plugin>
+		<groupId>org.codehaus.mojo</groupId>
+		<artifactId>build-helper-maven-plugin</artifactId>
+		<executions>
+			<execution>
+				<id>add-source</id>
+				<phase>generate-test-sources</phase>
+					<goals>
+						<goal>add-test-source</goal>
+					</goals>
+					<configuration>
+						<sources>
+							<source>${project.build.directory}/generated-test-sources/contracts/</source>
+						</sources>
+					</configuration>
+				</execution>
+			</executions>
+		</plugin>
+			
+```
+
 ### Implementierung 
 Um den Contract Test gegen die eigene Implementierung durchzuführen ist eine Basisklasse zu implementieren die, die den FlightController bzw. die gesamte Flight Application bereitstellt.
 Dazu ist folgende Basisklasse zu implementieren.  
@@ -351,10 +384,9 @@ public class BaseClass {
 ```
 
 # Test Settings
-Im Testfall soll sich der Flight Service nicht an der Service Registry anmelden. Daher ist folgende Konfiguration der ``pplication.yaml'' hinzuzufügen. 
+Im Testfall soll sich der Flight Service nicht an der Service Registry anmelden. Daher ist folgende Konfiguration der ``aplication.yaml'' hinzuzufügen. 
 
 ```
-
 ---
 spring:
   config: 
@@ -363,13 +395,15 @@ spring:
 eureka:
   client:
     enabled: false
-``` 
+```
+Und nicht vergessen, das Profil dann auch in der Konfiguration zu aktivieren - ganz oben in der Datei. 
+
 
 ### Build & Deployment 
 Mit dem Build wird der Test ausgeführt. Sind die Tests erfolgreiche, werden die WireMock-JSON-Stubs erzeugt und das JAR im lokalen Maven Repositoriy installiert. 
  
 ```
-mvn clean install -Peureka -h2 
+mvn clean install -Peureka -Ph2 
 ```
 
 ### Test 
@@ -377,6 +411,7 @@ Mit dem oben ausgeführten Maven-Build werden auch die Tests ausgeführt. Nur we
 
 
 ## Consumer  
+Bei dem Consumer handelt es sich um den **Route Service**.
 
 ### Dependency 
 
@@ -395,6 +430,10 @@ Für das Laden der vom Producer generierten Stubs is der folgende Starter notwen
 </dependency>
 		
 ```
+
+Auch hier muss das Maven-Profile auf eureka, h2, gesetzt werden. 
+
+
 
 ### Implementation 
 Der Test muss nun den Stup laden und für den Test bereitstellen. Erstellen Sie den folgenden Test ``TestRouteService``.
@@ -432,6 +471,26 @@ stubrunner:
 eureka:
   client:
     enabled: false
+```
 
 ### Test 
-Führen Sie nun den Test ``TestRouteService`` aus.   
+Führen Sie nun den Test ``TestRouteService`` aus.
+
+
+# Spring Boot Chaos Monkey 
+
+Für Spring Boot Chaos Monkey ist keine Übung vorgesehen, daher gibt es hier auch keine Ausführliche Beschreibung der Implementierung. Die Implementierung ist allerdings in den finalen Paketen zu finden. 
+
+Die Implementierung führ SBCM für den Flight Service ein und veruhrsacht in diesem Latenzen von über 2 Sekunden. 
+
+Die Implementierung für den Route Service konfiguriert den CurcuiteBraker so, dass dieser bereits nach 1 Sekunde greift und bei diesen Latenzen dann "No Flights" zurückgibt. Verschwindet der Fehler im Flight Service wieder, zeigt der Route Service die aktuellen Flüge pro Route an. 
+
+
+
+
+
+
+
+
+
+
